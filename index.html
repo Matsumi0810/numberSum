@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ナンバー サムゲタン</title>
+
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <link rel="icon" type="image/png" href="icon-192.png">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500&family=Montserrat:ital,wght@1,200&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="menu-screen">
+        <h1>pure sums</h1>
+        <div class="level-card"><button class="btn-main" onclick="startGame(5)">Serene (5x5)</button>
+            <div id="best-5" class="best-score" style="font-size: 0.8rem; opacity: 0.7;">best: --:--</div>
+        </div>
+        <div class="level-card"><button class="btn-main" onclick="startGame(6)">Dream (6x6)</button>
+            <div id="best-6" class="best-score" style="font-size: 0.8rem; opacity: 0.7;">best: --:--</div>
+        </div>
+        <div class="level-card"><button class="btn-main" onclick="startGame(7)">Spirit (7x7)</button>
+            <div id="best-7" class="best-score" style="font-size: 0.8rem; opacity: 0.7;">best: --:--</div>
+        </div>
+        <div class="level-card"><button class="btn-main" onclick="startGame(8)">Cosmos (8x8)</button>
+            <div id="best-8" class="best-score" style="font-size: 0.8rem; opacity: 0.7;">best: --:--</div>
+        </div>
+    </div>
+
+    <div id="game-header" style="display:none; width:100%; max-width:500px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin:20px 0;">
+            <div id="life-display" style="font-size:1.2rem; letter-spacing: 3px;"></div>
+            <div
+                style="display:flex; align-items:center; gap:15px; background:var(--glass-bg); padding:8px 20px; border-radius:50px; border:1px solid var(--glass-border);">
+                <span id="time-display">00:00</span>
+                <button onclick="togglePause()"
+                    style="background:none; border:none; color:inherit; font-size:0.8rem; cursor:pointer;">pause</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="game-wrapper" id="game-area">
+        <div id="grid" class="game-layout"></div>
+        <div id="pause-overlay">
+            <h2 style="font-weight:300; letter-spacing: 2px;">resting...</h2>
+            <button class="btn-main" onclick="togglePause()">Awaken</button>
+            <button class="btn-main btn-sub" onclick="backToMenu()">Title</button>
+        </div>
+        <div id="result-overlay">
+            <h2 id="result-text" style="font-weight:300;"></h2>
+            <div id="final-time" style="margin-bottom:10px;"></div>
+            <div id="new-record" style="display:none; color:white; margin-bottom:10px;">New Aura Found</div>
+            <button class="btn-main" onclick="initGame()">Re-Dream</button>
+            <button class="btn-main btn-sub" onclick="backToMenu()">Title</button>
+        </div>
+    </div>
+
+    <div class="mode-controls" id="mode-ui" style="display:none; margin-top:30px; gap:20px;">
+        <button id="btn-erase" class="mode-btn inactive" onclick="setMode('erase')">
+            <span style="display:block; font-size:1rem; font-weight:500;">Mist</span>
+            <span style="display:block; font-size:0.6rem; opacity:0.7;">ERASE</span>
+        </button>
+        <button id="btn-fix" class="mode-btn" onclick="setMode('fix')">
+            <span style="display:block; font-size:1rem; font-weight:500;">Star</span>
+            <span style="display:block; font-size:0.6rem; opacity:0.7;">FIX</span>
+        </button>
+    </div>
+
+    <script src="script.js"></script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js')
+                .then(() => console.log('Offline ready!'))
+                .catch(err => console.log('SW error:', err));
+        }
+    </script>
+</body>
+
+</html>

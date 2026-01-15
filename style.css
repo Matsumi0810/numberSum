@@ -1,0 +1,204 @@
+:root {
+    --bg-gradient: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+    --glass-bg: rgba(255, 255, 255, 0.25);
+    --glass-border: rgba(255, 255, 255, 0.4);
+    --text-color: #5a5a8a;
+    --correct-bg: rgba(142, 250, 200, 0.6);
+    --wrong-bg: rgba(255, 182, 193, 0.7);
+    --cell-bg: rgba(255, 255, 255, 0.4);
+    --cell-size: 50px;
+    --font-size: 1.1rem;
+}
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--bg-gradient);
+    background-attachment: fixed;
+    color: var(--text-color);
+    margin: 0;
+    padding: 10px;
+    min-height: 100vh;
+    touch-action: manipulation;
+}
+
+h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 200;
+    font-style: italic;
+    letter-spacing: 6px;
+    text-transform: lowercase;
+    margin-top: 30px;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+}
+
+#menu-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.level-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 85%;
+    max-width: 280px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 20px;
+    border-radius: 30px;
+    border: 1px solid var(--glass-border);
+    margin-bottom: 20px;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+}
+
+.btn-main,
+.mode-btn {
+    font-family: 'Quicksand', sans-serif;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.6);
+    color: var(--text-color);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    cursor: pointer;
+    width: 180px;
+    transition: all 0.4s ease;
+}
+
+.btn-main:active,
+.mode-btn:not(.inactive):active {
+    background: white;
+    transform: scale(0.98);
+}
+
+.btn-sub {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.game-wrapper {
+    position: relative;
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    padding: 20px;
+    border-radius: 24px;
+    border: 1px solid var(--glass-border);
+    display: none;
+}
+
+.game-wrapper.is-paused #grid {
+    filter: blur(15px);
+    opacity: 0;
+}
+
+.game-layout {
+    display: grid;
+    gap: 8px;
+    margin: 0 auto;
+    transition: all 0.3s ease;
+}
+
+.target {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.cell {
+    width: var(--cell-size);
+    height: var(--cell-size);
+    background: var(--cell-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    font-weight: 500;
+    font-size: var(--font-size);
+    color: var(--text-color);
+}
+
+.cell.correct {
+    background: var(--correct-bg);
+    border: 1px solid white;
+}
+
+.cell.eliminated {
+    opacity: 0.15;
+    transform: scale(0.8);
+    pointer-events: none;
+}
+
+.cell.wrong {
+    background: var(--wrong-bg);
+    animation: shake 0.4s ease;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-4px);
+    }
+
+    75% {
+        transform: translateX(4px);
+    }
+}
+
+.target-val {
+    font-size: calc(var(--font-size) * 0.9);
+    font-weight: 300;
+}
+
+.current-sum {
+    font-size: 0.6rem;
+    color: #fff;
+    height: 12px;
+    display: block;
+    line-height: 12px;
+    margin-bottom: 2px;
+}
+
+#pause-overlay,
+#result-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    border-radius: 24px;
+    gap: 20px;
+}
+
+#pause-overlay {
+    background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+    opacity: 1;
+}
+
+#result-overlay {
+    background: rgba(224, 195, 252, 0.8);
+    backdrop-filter: blur(20px);
+}
+
+.mode-btn.inactive {
+    opacity: 0.3;
+    border: 1px dashed white;
+    transform: scale(0.95);
+}
